@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Coming Soon Page with Fullwidth Video</title>
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description"
+        content="...">
+    <link href="./css/maintenance.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300&display=swap" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./icons/favicon-16x16.png">
+    <link rel="mask-icon" href="./icons/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#00aba9">
+    <meta name="theme-color" content="#ffffff">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="modernizr.js"></script>
+    <script src="object-fit-videos.min.js"></script>
+    <script src="https://kit.fontawesome.com/e39e2f6bb1.js" crossorigin="anonymous"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?key"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'key');
+    </script>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="https://via.placeholder.com/150" alt="Logo">
+        </div>
+    </header>
+    <main class="content">
+        <video preload="auto" id="video" autoplay muted playsinline class="objectfit-support" width="100%">
+            <source src="./videos/intro.mp4" type="video/mp4">
+            <source src="./videos/intro_portrait.mp4" type="video/mp4" media="screen and (max-width:480px)">
+        </video>
+
+        <div class="message container hide">
+            <h1>Coming soon</h1>
+            <p>very soon</p>
+        </div>
+        <div class="adresse container hide">
+            <p>Lorem lorem lorem lorem</p>
+            <p>Lorem ispum <a href="tel:+33#">00 00 00 00 00</a> - <a
+                    href="mailto:#">mail@mail.com</a></p>
+        </div>
+
+        <div class="btn">
+            <a href="#">
+                <i class="fas fa-volume-mute"></i>
+                <i class="fas fa-volume-up" style="display:none;"></i>
+            </a>
+        </div>
+    </main>
+
+    <script>
+
+        (function ($) {
+            $(document).ready(function () {
+
+                var videoElem = document.getElementById('video');
+
+                if (navigator.userAgent.match(/Trident.*rv:11\./)) {
+                    objectFitVideos(videoElem);
+                }
+
+                $('video').on('ended', function () {
+                    console.log('Video has ended!');
+                    $('video').hide();
+                    $('.message, .adresse').removeClass('hide');
+                    $('video').removeClass('objectfit-support');
+                    $('.btn').hide();
+                });
+
+                if (window.innerHeight > window.innerWidth) {
+                    //portrait
+                    console.log('portrait');
+                    var src = "./videos/intro_portrait.mp4";
+                    $("video").attr("src", src);
+                }
+                if (window.innerWidth > window.innerHeight) {
+                    //landscape
+                    console.log('paysage');
+                    var src = "./videos/intro.mp4";
+                    $("video").attr("src", src);
+                }
+
+                var video = $('video');
+
+                $('.btn a').on('click', function () {
+                    console.log('sound')
+                    if ($("video").prop('muted')) {
+                        $("video").prop('muted', false);
+                        $('.fa-volume-up').show();
+                        $('.fa-volume-mute').hide();
+                    }
+                    else {
+                        $("video").prop('muted', true);
+                        $('.fa-volume-up').hide();
+                        $('.fa-volume-mute').show();
+                    }
+                });
+
+
+
+
+            });
+
+
+        })(jQuery);
+
+    </script>
+</body>
+
+</html>
